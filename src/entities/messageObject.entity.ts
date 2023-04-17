@@ -1,7 +1,7 @@
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { BaseEntity } from './base.entity'
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm'
-import { UserEntity } from './user.entity'
 import { MessageEntity } from './message.entity'
+import { UserEntity } from './user.entity'
 
 /**
  * Đối tượng gửi
@@ -37,15 +37,6 @@ export class MessageObjectEntity extends BaseEntity {
     nullable: true,
   })
   residentId: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: true,
-  })
-  employeeId: string
-
-
 
   @ManyToOne(() => MessageEntity, (p) => p.objects)
   @JoinColumn({ name: 'messageId', referencedColumnName: 'id' })

@@ -1,16 +1,9 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator'
+import { DateAggregationFunction } from 'aws-sdk/clients/quicksight'
+import { IsOptional, IsString } from 'class-validator'
 
 export class FilterDto {
   @IsOptional()
-  month: Date
-
-  @IsOptional()
-  @IsString()
-  roomId: string
-
-  @IsOptional()
-  @IsString()
-  apartmentId: string
+  month: DateAggregationFunction
 
   @IsOptional()
   @IsString()
@@ -26,22 +19,6 @@ export class FilterDto {
 
   @IsOptional()
   idNo: string
-
-  @IsOptional()
-  @IsString()
-  billId: string
-
-  @IsOptional()
-  @IsString()
-  jobId: string
-
-  @IsOptional()
-  @IsString()
-  sentBillStatus: string
-
-  @IsOptional()
-  @IsString()
-  paymentType: string
 
   @IsOptional()
   skip: number

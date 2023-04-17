@@ -1,5 +1,5 @@
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { BaseEntity } from './base.entity'
-import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm'
 import { UserEntity } from './user.entity'
 /**
  * Thông báo
@@ -34,20 +34,6 @@ export class NotifyEntity extends BaseEntity {
     nullable: false,
   })
   status: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: true,
-  })
-  jobId: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: true,
-  })
-  jobDailyId: string
 
   @Column({
     type: 'varchar',

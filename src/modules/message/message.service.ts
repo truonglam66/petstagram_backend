@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common'
-import { MessageRepository } from '../../repositories/message.repository'
-import { MessageCreateDto } from './dto/messageCreate.dto'
-import { MessageUpdateDto } from './dto'
-import { FilterOneDto, PaginationDto, UserDto } from '../../common/dto'
-import { FirebaseService } from '../firebase/firebase.service'
-import { FirebaseDto } from '../firebase/dto'
 import * as moment from 'moment'
-import { Like, In, Not, Raw } from 'typeorm'
+import { In, Like, Not, Raw } from 'typeorm'
 import {
-  enumData,
-  CREATE_SUCCESS,
   CREATE_FAIL,
+  CREATE_SUCCESS,
   ERROR_NOT_FOUND_DATA,
   UPDATE_ACTIVE_SUCCESS,
+  enumData,
 } from '../../common/constants'
-import { MessageObjectEntity, MessageEntity } from '../../entities'
+import { FilterOneDto, PaginationDto, UserDto } from '../../common/dto'
+import { MessageEntity, MessageObjectEntity } from '../../entities'
+import { MessageRepository } from '../../repositories/message.repository'
+import { FirebaseDto } from '../firebase/dto'
+import { FirebaseService } from '../firebase/firebase.service'
+import { MessageUpdateDto } from './dto'
+import { MessageCreateDto } from './dto/messageCreate.dto'
 
 @Injectable()
 export class MessageService {
@@ -107,7 +107,6 @@ export class MessageService {
         let mObj = new MessageObjectEntity()
         mObj.messageId = item.id
         mObj.userId = obj.userId
-        mObj.employeeId = obj.employeeId
         mObj.residentId = obj.residentId
         mObj.status = enumData.MessageObjectStatus.Non.code
 
@@ -228,9 +227,6 @@ export class MessageService {
       item.title = data.title
       item.content = data.content
       item.processDate = data.processDate
-
-      item.apartmentId = data.apartmentId
-      item.roomId = data.roomId
       item.status = enumData.MessageStatus.New.code
       if (data.isSendNow) {
         item.status = enumData.MessageStatus.Send.code
@@ -246,7 +242,6 @@ export class MessageService {
         let mObj = new MessageObjectEntity()
         mObj.messageId = mess.id
         mObj.userId = obj.userId
-        mObj.employeeId = obj.employeeId
         mObj.residentId = obj.residentId
         mObj.status = enumData.MessageObjectStatus.Non.code
 

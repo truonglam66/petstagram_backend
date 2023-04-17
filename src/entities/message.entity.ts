@@ -1,5 +1,5 @@
+import { Column, Entity, OneToMany } from 'typeorm'
 import { BaseEntity } from './base.entity'
-import { Entity, Column, OneToMany, JoinColumn, ManyToOne } from 'typeorm'
 import { MessageObjectEntity } from './messageObject.entity'
 /**
  * tin nhắn
@@ -24,20 +24,6 @@ export class MessageEntity extends BaseEntity {
     nullable: true,
   })
   content: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: true,
-  })
-  apartmentId: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: true,
-  })
-  roomId: string
 
   @Column({
     type: 'varchar',
