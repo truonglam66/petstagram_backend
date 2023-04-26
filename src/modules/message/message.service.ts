@@ -46,7 +46,6 @@ export class MessageService {
     let where: any = new Object()
     if (data.where) {
       data.where.isDeleted = false
-      data.where.companyId = userLogin.companyId
     }
     if (data.where.title) {
       where.title = Like(`%${data.where.title}%`)

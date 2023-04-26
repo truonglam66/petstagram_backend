@@ -69,17 +69,6 @@ export class AuthService {
     if (!userEntity) throw new NotFoundException('Tài khoản không tồn tại!')
 
     let userId = userEntity.id
-    // let userType = await userEntity.type
-    let employeeType
-    if (user.type == enumData.EmployeeType.Admin.code) {
-      employeeType = enumData.EmployeeType.Admin.code
-    } else {
-      employeeType = enumData.EmployeeType.Employee.code
-    }
-
-    // if (userEntity && userEntity.type == enumData.UserType.Admin.code) {
-    //   employeeType = enumData.EmployeeType.Admin.code
-    // }
 
     const isProduct = process.env.IS_PRODUCT == 'true'
     const accessToken = isProduct ? user.accessToken : this.jwtService.sign({ uid: user.id })
@@ -129,6 +118,8 @@ export class AuthService {
       throw new ConflictException('Tên tài khoản đã được sử dụng.')
     }
     const newUserEntity = this.userRepo.create(user)
+    newUserEntity.createdAt = new Date()
+    newUserEntity.createdByName = user.fullName
     const { password, isDeleted, ...createdUserEntity } = await this.userRepo.save(newUserEntity)
     const createdUser = plainToClass(UserDto, createdUserEntity)
     return createdUser

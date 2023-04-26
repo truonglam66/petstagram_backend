@@ -1,12 +1,12 @@
-import { ArchivalFileRepository } from '../../repositories/archivalFile.repository'
-import { FilterOneDto, PaginationDto, UserDto } from '../../common/dto'
 import { Injectable } from '@nestjs/common'
-import { ArchivalFileCreateDto, ArchivalFileUpdateDto } from './dto'
 import * as moment from 'moment'
 import { customAlphabet } from 'nanoid'
-import { Raw, Like } from 'typeorm'
-import { UPDATE_ACTIVE_SUCCESS, ERROR_NOT_FOUND_DATA } from '../../common/constants'
+import { Like, Raw } from 'typeorm'
+import { ERROR_NOT_FOUND_DATA, UPDATE_ACTIVE_SUCCESS } from '../../common/constants'
+import { FilterOneDto, PaginationDto, UserDto } from '../../common/dto'
 import { ArchivalFileEntity } from '../../entities'
+import { ArchivalFileRepository } from '../../repositories/archivalFile.repository'
+import { ArchivalFileCreateDto, ArchivalFileUpdateDto } from './dto'
 
 @Injectable()
 export class ArchivalFileService {
@@ -61,7 +61,6 @@ export class ArchivalFileService {
   public async pagination(userLogin: UserDto, data: PaginationDto) {
     let where: any = {}
     where.isDeleted = false
-    where.companyId = userLogin.companyId
 
     if (data.where.createdAt && data.where.createdAt.length > 0) {
       const ds = new Date(new Date(data.where.createdAt[0]).setHours(0, 0, 0, 0))
