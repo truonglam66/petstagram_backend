@@ -1,20 +1,19 @@
-import { Injectable, ConflictException, BadRequestException, NotFoundException } from '@nestjs/common'
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { plainToClass } from 'class-transformer'
-import { UserRepository } from '../../repositories'
-import { UserRegisterDto } from './dto/register.dto'
-import { UpdatePasswordDto } from './dto/update-password.dto'
-import { UpdatePasswordResultDto } from './dto/update-password-result.dto'
-import { UserDto } from '../../common/dto/user.dto'
-import { SendConfirmCodeDto, SendConfirmCodeResultDto } from './dto/send-confirm-code.dto'
-import { ForgotPasswordDto, ForgotPasswordResultDto } from './dto/forgot-password.dto'
-import { In } from 'typeorm'
 import { enumData } from '../../common/constants'
-import { UpdateUsernameDto } from './dto/update-username'
-import { RequestFCMTokenDto } from './dto'
-import { enumApeAuth, UserAuthDto } from '../../helpers'
+import { UserDto } from '../../common/dto/user.dto'
 import { UserEntity } from '../../entities'
+import { UserAuthDto, enumApeAuth } from '../../helpers'
+import { UserRepository } from '../../repositories'
 import { UserService } from '../user/user.service'
+import { RequestFCMTokenDto } from './dto'
+import { ForgotPasswordDto, ForgotPasswordResultDto } from './dto/forgot-password.dto'
+import { UserRegisterDto } from './dto/register.dto'
+import { SendConfirmCodeDto, SendConfirmCodeResultDto } from './dto/send-confirm-code.dto'
+import { UpdatePasswordResultDto } from './dto/update-password-result.dto'
+import { UpdatePasswordDto } from './dto/update-password.dto'
+import { UpdateUsernameDto } from './dto/update-username'
 
 @Injectable()
 export class AuthService {
@@ -51,7 +50,7 @@ export class AuthService {
     if (!userEntity && userType == enumApeAuth.UserType.CompanyPackageAdmin) {
       const userNew = new UserEntity()
       userNew.username = username
-      userNew.type = enumData.UserType.AdminCompany.code
+      // userNew.type = enumData.UserType.AdminCompany.code
       userEntity = await this.userRepo.save(userNew)
     }
 
@@ -62,7 +61,7 @@ export class AuthService {
     const userEntity = await this.userRepo.findOne({
       where: {
         id: user.id,
-        type: In([enumData.UserType.Admin.code, enumData.UserType.Employee.code, enumData.UserType.AdminCompany.code]),
+        // type: In([enumData.UserType.Admin.code, enumData.UserType.Employee.code, enumData.UserType.AdminCompany.code]),
         isDeleted: false,
       },
       relations: { },
@@ -70,7 +69,7 @@ export class AuthService {
     if (!userEntity) throw new NotFoundException('Tài khoản không tồn tại!')
 
     let userId = userEntity.id
-    let userType = await userEntity.type
+    // let userType = await userEntity.type
     let employeeType
     if (user.type == enumData.EmployeeType.Admin.code) {
       employeeType = enumData.EmployeeType.Admin.code
@@ -78,9 +77,9 @@ export class AuthService {
       employeeType = enumData.EmployeeType.Employee.code
     }
 
-    if (userEntity && userEntity.type == enumData.UserType.Admin.code) {
-      employeeType = enumData.EmployeeType.Admin.code
-    }
+    // if (userEntity && userEntity.type == enumData.UserType.Admin.code) {
+    //   employeeType = enumData.EmployeeType.Admin.code
+    // }
 
     const isProduct = process.env.IS_PRODUCT == 'true'
     const accessToken = isProduct ? user.accessToken : this.jwtService.sign({ uid: user.id })
@@ -89,7 +88,7 @@ export class AuthService {
       accessToken,
       enumData: enumData,
       userId: userId,
-      type: userType,
+      // type: userType,
       avatarUrl: userEntity.avatarUrl,
     }
     return result
@@ -102,7 +101,7 @@ export class AuthService {
       },
       where: {
         id: user.id,
-        type: enumData.UserType.Employee.code,
+        // type: enumData.UserType.Employee.code,
         isDeleted: false,
       },
     })

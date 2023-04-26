@@ -36,18 +36,17 @@ export class NotifyEntity extends BaseEntity {
   status: string
 
   @Column({
+    type: 'text',
+    nullable: true,
+  })
+  dataJSON: string
+  
+  @Column({
     type: 'varchar',
     length: 36,
     nullable: true,
   })
   userId: string
-
-  @Column({
-    type: 'text',
-    nullable: true,
-  })
-  dataJSON: string
-
   @ManyToOne(() => UserEntity, (p) => p.notifys)
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   user: Promise<UserEntity>

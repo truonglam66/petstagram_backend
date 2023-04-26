@@ -1,5 +1,5 @@
+import { Column, Entity } from 'typeorm'
 import { BaseEntity } from './base.entity'
-import { Entity, Column } from 'typeorm'
 
 @Entity('archival_file')
 export class ArchivalFileEntity extends BaseEntity {
@@ -36,5 +36,4 @@ export class ArchivalFileEntity extends BaseEntity {
     nullable: true,
   })
   description: string
-
 }

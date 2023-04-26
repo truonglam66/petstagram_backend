@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { hash } from 'bcrypt'
-import { compare } from 'mathjs'
-import { enumData, ERROR_NOT_FOUND_DATA, PWD_SALT_ROUNDS, SUCCESS } from '../../common/constants'
+import { ERROR_NOT_FOUND_DATA } from '../../common/constants'
 import { UserDto } from '../../common/dto'
 import { UserEntity } from '../../entities'
 import { UserRepository } from '../../repositories'
@@ -14,7 +12,7 @@ export class UserService {
     return await this.repository.find({
       where: {
         isDeleted: false,
-        type: enumData.UserType.Employee.code,
+        // type: enumData.UserType.Employee.code,
       },
       // relations: ['employee'],
       relations: {

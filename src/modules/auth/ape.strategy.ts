@@ -1,10 +1,10 @@
-import { ExtractJwt, Strategy } from 'passport-jwt'
-import { PassportStrategy } from '@nestjs/passport'
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { PassportStrategy } from '@nestjs/passport'
+import { ExtractJwt, Strategy } from 'passport-jwt'
+import { apeAuthApiHelper } from '../../helpers'
 import { UserRepository } from '../../repositories'
 import { JwtPayloadDto } from './dto'
-import { apeAuthApiHelper } from '../../helpers'
 
 @Injectable()
 export class ApeStrategy extends PassportStrategy(Strategy, 'ape') {
@@ -31,9 +31,9 @@ export class ApeStrategy extends PassportStrategy(Strategy, 'ape') {
         where: { username: data.username, isDeleted: false },
         select: {
           id: true,
-          employeeId: true,
+          // employeeId: true,
           username: true,
-          type: true,
+          // type: true,
         },
       })
       if (!user) throw new UnauthorizedException('Không có quyền truy cập! (code: APE_ROOM_USER_ERROR)')
@@ -48,9 +48,9 @@ export class ApeStrategy extends PassportStrategy(Strategy, 'ape') {
         where: { id: payload.uid },
         select: {
           id: true,
-          employeeId: true,
+          // employeeId: true,
           username: true,
-          type: true,
+          // type: true,
         },
       })
       if (!user) throw new UnauthorizedException('Không có quyền truy cập! (code: ROOM_USER_ERROR)')

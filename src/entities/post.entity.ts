@@ -4,7 +4,7 @@ import { CommentEntity } from './comment.entity'
 import { PhotoEntity } from './photo.entity'
 import { UserEntity } from './user.entity'
 
-@Entity({ name: 'user' })
+@Entity({ name: 'post' })
 export class PostEntity extends BaseEntity {
   @Column({
     type: 'varchar',
@@ -23,7 +23,6 @@ export class PostEntity extends BaseEntity {
     nullable: false,
   })
   userId: string
-
   @ManyToOne(() => UserEntity, (p) => p.posts)
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   user: Promise<UserEntity>

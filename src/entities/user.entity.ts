@@ -1,14 +1,15 @@
-import { Column, Entity, BeforeInsert, BeforeUpdate, OneToMany, JoinColumn } from 'typeorm'
 import { compare, hash } from 'bcrypt'
-import { BaseEntity } from './base.entity'
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm'
 import { PWD_SALT_ROUNDS } from '../common/constants'
+import { BaseEntity } from './base.entity'
+import { CommentEntity } from './comment.entity'
+import { FollowerEntity } from './follower.entity'
+import { FollowingEntity } from './following.entity'
+import { MessageEntity } from './message.entity'
 import { MessageObjectEntity } from './messageObject.entity'
 import { NotifyEntity } from './notify.entity'
 import { PostEntity } from './post.entity'
-import { CommentEntity } from './comment.entity'
 import { ReactionEntity } from './reaction.entity'
-import { FollowerEntity } from './follower.entity'
-import { FollowingEntity } from './following.entity'
 
 @Entity({ name: 'user' })
 export class UserEntity extends BaseEntity {
@@ -33,27 +34,6 @@ export class UserEntity extends BaseEntity {
     nullable: false,
   })
   password: string
-
-  @Column({
-    type: 'varchar',
-    length: 50,
-    nullable: false,
-  })
-  type: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: true,
-  })
-  employeeId: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: true,
-  })
-  residentId: string
 
   @Column({
     type: 'text',
@@ -99,4 +79,7 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(() => FollowingEntity, (p) => p.user)
   followings: Promise<FollowingEntity>
+
+  @OneToMany(() => MessageEntity, (p) => p.user)
+  messages: Promise<MessageEntity[]>
 }
