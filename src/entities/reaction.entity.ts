@@ -3,7 +3,7 @@ import { BaseEntity } from './base.entity'
 import { PostEntity } from './post.entity'
 import { UserEntity } from './user.entity'
 
-@Entity({ name: 'user' })
+@Entity({ name: 'reaction' })
 export class ReactionEntity extends BaseEntity {
   @Column({
     type: 'varchar',
@@ -16,16 +16,14 @@ export class ReactionEntity extends BaseEntity {
     nullable: false,
   })
   userId: string
-
+  @ManyToOne(() => UserEntity, (p) => p.reactions)
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+  user: Promise<UserEntity>
+  
   @Column({
     nullable: false,
   })
   postId: string
-
-  @ManyToOne(() => UserEntity, (p) => p.reactions)
-  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
-  user: Promise<UserEntity>
-
   @ManyToOne( () => PostEntity, (p) => p.reactions)
   @JoinColumn({ name: 'postId', referencedColumnName: 'id' })
   post: Promise<PostEntity>

@@ -8,13 +8,25 @@ import { UserEntity } from './user.entity'
  */
 @Entity('message_object')
 export class MessageObjectEntity extends BaseEntity {
-
   @Column({
     type: 'varchar',
     length: 36,
     nullable: false,
   })
   messageId: string
+  @ManyToOne(() => MessageEntity, (p) => p.objects)
+  @JoinColumn({ name: 'messageId', referencedColumnName: 'id' })
+  message: Promise<MessageEntity>
+  
+  @Column({
+    type: 'varchar',
+    length: 36,
+    nullable: false,
+  })
+  userId: string
+  @ManyToOne(() => UserEntity, (p) => p.messageObjects)
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+  user: Promise<UserEntity>
 
   /** Trạng thái */
   @Column({
@@ -23,27 +35,4 @@ export class MessageObjectEntity extends BaseEntity {
     nullable: false,
   })
   status: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: false,
-  })
-  userId: string
-
-  @Column({
-    type: 'varchar',
-    length: 36,
-    nullable: true,
-  })
-  residentId: string
-
-  @ManyToOne(() => MessageEntity, (p) => p.objects)
-  @JoinColumn({ name: 'messageId', referencedColumnName: 'id' })
-  message: Promise<MessageEntity>
-
-  @ManyToOne(() => UserEntity, (p) => p.messageObjects)
-  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
-  user: Promise<UserEntity>
-
 }

@@ -46,7 +46,6 @@ export class MessageService {
     let where: any = new Object()
     if (data.where) {
       data.where.isDeleted = false
-      data.where.companyId = userLogin.companyId
     }
     if (data.where.title) {
       where.title = Like(`%${data.where.title}%`)
@@ -64,17 +63,17 @@ export class MessageService {
       where.roomId = data.where.roomId
     }
 
-    if (data.where.residentId) {
-      let lstMO = await this.repository.manager.getRepository(MessageObjectEntity).findBy({
-        isDeleted: false,
-        residentId: data.where.residentId,
-      })
-      if (lstMO.length > 0) {
-        let lstMOId = lstMO.map((s: any) => s.messageId)
-        lstMOId = Array.from(new Set(lstMOId))
-        where.id = In(lstMOId)
-      }
-    }
+    // if (data.where.residentId) {
+    //   let lstMO = await this.repository.manager.getRepository(MessageObjectEntity).findBy({
+    //     isDeleted: false,
+    //     // residentId: data.where.residentId,
+    //   })
+    //   if (lstMO.length > 0) {
+    //     let lstMOId = lstMO.map((s: any) => s.messageId)
+    //     lstMOId = Array.from(new Set(lstMOId))
+    //     where.id = In(lstMOId)
+    //   }
+    // }
 
     return await this.repository.findAndCount({
       relations: data.relations,
@@ -107,7 +106,7 @@ export class MessageService {
         let mObj = new MessageObjectEntity()
         mObj.messageId = item.id
         mObj.userId = obj.userId
-        mObj.residentId = obj.residentId
+        // mObj.residentId = obj.residentId
         mObj.status = enumData.MessageObjectStatus.Non.code
 
         mObj.createdBy = userLogin.id
@@ -242,7 +241,7 @@ export class MessageService {
         let mObj = new MessageObjectEntity()
         mObj.messageId = mess.id
         mObj.userId = obj.userId
-        mObj.residentId = obj.residentId
+        // mObj.residentId = obj.residentId
         mObj.status = enumData.MessageObjectStatus.Non.code
 
         mObj.createdBy = userLogin.id

@@ -1,4 +1,5 @@
-import { IsUUID, IsString, IsDate, IsArray, IsOptional } from 'class-validator'
+import { DateAxisOptions } from 'aws-sdk/clients/quicksight'
+import { IsDate, IsOptional, IsString, IsUUID } from 'class-validator'
 
 export class UserDto {
   @IsUUID()
@@ -13,33 +14,11 @@ export class UserDto {
   @IsString()
   type: string
 
-  @IsOptional()
-  @IsString()
-  apartmentId?: string | null
-
-  @IsOptional()
-  @IsString()
-  residentId: string | null
-
-  @IsOptional()
-  @IsString()
-  employeeId: string | null
-
   @IsDate()
   createdAt: Date
 
   @IsDate()
-  updatedAt: Date
-
-  @IsOptional()
-  @IsArray()
-  roles?: string[]
-
-  @IsOptional()
-  employeeType?: string | null
-
-  @IsString()
-  companyId: string
+  updatedAt: DateAxisOptions
 
   @IsOptional()
   avatarUrl: string

@@ -1,0 +1,69 @@
+import { MigrationInterface, QueryRunner } from "typeorm";
+
+export class initDB1682474150671 implements MigrationInterface {
+    name = 'initDB1682474150671'
+
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`CREATE TABLE \`archival_file\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`fileUrl\` text NOT NULL, \`fileCode\` varchar(50) NULL, \`fileName\` varchar(250) NULL, \`dataType\` varchar(50) NULL, \`description\` text NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`photo\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`photoUrl\` varchar(255) NOT NULL, \`userId\` varchar(255) NOT NULL, \`postId\` varchar(255) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`follower\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`followerId\` varchar(255) NOT NULL, \`userId\` varchar(255) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`following\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`followingId\` varchar(255) NOT NULL, \`userId\` varchar(255) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`message_object\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`messageId\` varchar(36) NOT NULL, \`userId\` varchar(36) NOT NULL, \`status\` varchar(50) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`message\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`userId\` varchar(255) NOT NULL, \`processDate\` datetime NOT NULL, \`title\` varchar(500) NOT NULL, \`content\` text NULL, \`status\` varchar(50) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`notify\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`objectType\` varchar(500) NOT NULL, \`title\` varchar(500) NOT NULL, \`content\` text NULL, \`status\` varchar(50) NOT NULL, \`dataJSON\` text NULL, \`userId\` varchar(36) NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`reaction\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`type\` varchar(10) NOT NULL, \`userId\` varchar(255) NOT NULL, \`postId\` varchar(255) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`user\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`username\` varchar(50) NOT NULL, \`fullName\` varchar(250) NOT NULL, \`password\` text NOT NULL, \`fcmToken\` text NULL, \`avatarUrl\` varchar(255) NULL, UNIQUE INDEX \`IDX_78a916df40e02a9deb1c4b75ed\` (\`username\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`post\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`title\` varchar(50) NOT NULL, \`content\` text NULL, \`userId\` varchar(255) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`comment\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`content\` text NULL, \`userId\` varchar(255) NOT NULL, \`postId\` varchar(255) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`city\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`code\` varchar(250) NOT NULL, \`name\` varchar(250) NOT NULL, \`area\` varchar(50) NOT NULL DEFAULT '', \`region\` varchar(50) NOT NULL DEFAULT '', PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`ward\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`code\` varchar(250) NOT NULL, \`name\` varchar(250) NOT NULL, \`districtId\` varchar(36) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`district\` (\`id\` varchar(36) NOT NULL, \`createdBy\` varchar(36) NULL, \`createdByName\` varchar(250) NULL, \`updatedBy\` varchar(36) NULL, \`updatedByName\` varchar(250) NULL, \`createdAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`updatedAt\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`isDeleted\` tinyint NOT NULL DEFAULT 0, \`code\` varchar(250) NOT NULL, \`name\` varchar(250) NOT NULL, \`cityId\` varchar(36) NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`ALTER TABLE \`photo\` ADD CONSTRAINT \`FK_26a50e5f89820e2ffbacc70ee5c\` FOREIGN KEY (\`postId\`) REFERENCES \`post\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`follower\` ADD CONSTRAINT \`FK_6fe328c3c08b70a5c9c79348839\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`following\` ADD CONSTRAINT \`FK_fc4cbf2396bf4bb1df9ecb3cc4a\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`message_object\` ADD CONSTRAINT \`FK_173af675f90b0ff2031804e5482\` FOREIGN KEY (\`messageId\`) REFERENCES \`message\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`message_object\` ADD CONSTRAINT \`FK_699b8afdc7170af2e509269f706\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`message\` ADD CONSTRAINT \`FK_446251f8ceb2132af01b68eb593\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`notify\` ADD CONSTRAINT \`FK_7e728820acd8818fe9638791bcf\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`reaction\` ADD CONSTRAINT \`FK_e58a09ab17e3ce4c47a1a330ae1\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`reaction\` ADD CONSTRAINT \`FK_dc3aeb83dc815f9f22ebfa7785f\` FOREIGN KEY (\`postId\`) REFERENCES \`post\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`post\` ADD CONSTRAINT \`FK_5c1cf55c308037b5aca1038a131\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`comment\` ADD CONSTRAINT \`FK_c0354a9a009d3bb45a08655ce3b\` FOREIGN KEY (\`userId\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`comment\` ADD CONSTRAINT \`FK_94a85bb16d24033a2afdd5df060\` FOREIGN KEY (\`postId\`) REFERENCES \`post\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`ward\` ADD CONSTRAINT \`FK_19a3bc9b3be291e8b9bc2bb623b\` FOREIGN KEY (\`districtId\`) REFERENCES \`district\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`district\` ADD CONSTRAINT \`FK_148f1c944d0fec4114a54984da1\` FOREIGN KEY (\`cityId\`) REFERENCES \`city\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE \`district\` DROP FOREIGN KEY \`FK_148f1c944d0fec4114a54984da1\``);
+        await queryRunner.query(`ALTER TABLE \`ward\` DROP FOREIGN KEY \`FK_19a3bc9b3be291e8b9bc2bb623b\``);
+        await queryRunner.query(`ALTER TABLE \`comment\` DROP FOREIGN KEY \`FK_94a85bb16d24033a2afdd5df060\``);
+        await queryRunner.query(`ALTER TABLE \`comment\` DROP FOREIGN KEY \`FK_c0354a9a009d3bb45a08655ce3b\``);
+        await queryRunner.query(`ALTER TABLE \`post\` DROP FOREIGN KEY \`FK_5c1cf55c308037b5aca1038a131\``);
+        await queryRunner.query(`ALTER TABLE \`reaction\` DROP FOREIGN KEY \`FK_dc3aeb83dc815f9f22ebfa7785f\``);
+        await queryRunner.query(`ALTER TABLE \`reaction\` DROP FOREIGN KEY \`FK_e58a09ab17e3ce4c47a1a330ae1\``);
+        await queryRunner.query(`ALTER TABLE \`notify\` DROP FOREIGN KEY \`FK_7e728820acd8818fe9638791bcf\``);
+        await queryRunner.query(`ALTER TABLE \`message\` DROP FOREIGN KEY \`FK_446251f8ceb2132af01b68eb593\``);
+        await queryRunner.query(`ALTER TABLE \`message_object\` DROP FOREIGN KEY \`FK_699b8afdc7170af2e509269f706\``);
+        await queryRunner.query(`ALTER TABLE \`message_object\` DROP FOREIGN KEY \`FK_173af675f90b0ff2031804e5482\``);
+        await queryRunner.query(`ALTER TABLE \`following\` DROP FOREIGN KEY \`FK_fc4cbf2396bf4bb1df9ecb3cc4a\``);
+        await queryRunner.query(`ALTER TABLE \`follower\` DROP FOREIGN KEY \`FK_6fe328c3c08b70a5c9c79348839\``);
+        await queryRunner.query(`ALTER TABLE \`photo\` DROP FOREIGN KEY \`FK_26a50e5f89820e2ffbacc70ee5c\``);
+        await queryRunner.query(`DROP TABLE \`district\``);
+        await queryRunner.query(`DROP TABLE \`ward\``);
+        await queryRunner.query(`DROP TABLE \`city\``);
+        await queryRunner.query(`DROP TABLE \`comment\``);
+        await queryRunner.query(`DROP TABLE \`post\``);
+        await queryRunner.query(`DROP INDEX \`IDX_78a916df40e02a9deb1c4b75ed\` ON \`user\``);
+        await queryRunner.query(`DROP TABLE \`user\``);
+        await queryRunner.query(`DROP TABLE \`reaction\``);
+        await queryRunner.query(`DROP TABLE \`notify\``);
+        await queryRunner.query(`DROP TABLE \`message\``);
+        await queryRunner.query(`DROP TABLE \`message_object\``);
+        await queryRunner.query(`DROP TABLE \`following\``);
+        await queryRunner.query(`DROP TABLE \`follower\``);
+        await queryRunner.query(`DROP TABLE \`photo\``);
+        await queryRunner.query(`DROP TABLE \`archival_file\``);
+    }
+
+}
